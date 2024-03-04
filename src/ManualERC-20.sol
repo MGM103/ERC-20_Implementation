@@ -14,6 +14,11 @@ contract ManualERC20 {
     );
 
     error ManualERC20__InsufficientBalance(uint256 balance, uint256 required);
+    error ManualERC20__InsufficientAllowanceOrBalance(
+        uint256 allowance,
+        uint256 balance,
+        uint256 required
+    );
     error ManualERC20__ZeroAddressTransfer();
 
     function name() public pure returns (string memory) {
@@ -47,17 +52,11 @@ contract ManualERC20 {
                 _value
             );
 
-        uint256 preTransferValue = balanceOf(_to) + balanceOf(msg.sender);
         s_balances[msg.sender] -= _value;
         s_balances[_to] += _value;
 
-        require(
-            preTransferValue == balanceOf(_to) + balanceOf(msg.sender),
-            "Transfer failed"
-        );
-        success = balanceOf(_to) + balanceOf(msg.sender) == preTransferValue;
-
         emit Transfer(msg.sender, _to, _value);
+        success = true;
     }
 
     function transferFrom(
@@ -65,10 +64,15 @@ contract ManualERC20 {
         address _to,
         uint256 _value
     ) public returns (bool success) {
-        require(
+        if (
             s_balances[_from] >= _value &&
-                s_allowed[_from][msg.sender] >= _value
-        );
+            s_allowed[_from][msg.sender] >= _value
+        )
+            revert ManualERC20__InsufficientAllowanceOrBalance(
+                s_allowed[_from][msg.sender],
+                s_balances[_from],
+                _value
+            );
         s_balances[_to] += _value;
         s_balances[_from] -= _value;
         s_allowed[_from][msg.sender] -= _value;
