@@ -3,6 +3,11 @@
 pragma solidity ^0.8.21;
 
 contract ManualERC20 {
+    uint8 private constant NUM_DECIMALS = 18;
+
+    string private s_name;
+    string private s_symbol;
+
     mapping(address => uint256) private s_balances;
     mapping(address => mapping(address => uint256)) public s_allowed;
 
@@ -21,16 +26,22 @@ contract ManualERC20 {
     );
     error ManualERC20__ZeroAddressTransfer();
 
-    function name() public pure returns (string memory) {
-        return "Manual ERC-20";
+    constructor(string memory _name, string memory _symbol) {
+        s_name = _name;
+        s_symbol = _symbol;
+        s_balances[msg.sender] = totalSupply();
     }
 
-    function symbol() public pure returns (string memory) {
-        return "MERC20";
+    function name() public view returns (string memory) {
+        return s_name;
+    }
+
+    function symbol() public view returns (string memory) {
+        return s_symbol;
     }
 
     function decimals() public pure returns (uint8) {
-        return 18;
+        return NUM_DECIMALS;
     }
 
     function totalSupply() public pure returns (uint256) {
