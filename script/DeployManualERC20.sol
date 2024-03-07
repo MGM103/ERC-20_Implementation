@@ -8,7 +8,7 @@ import {ManualERC20} from "../src/ManualERC-20.sol";
 contract DeployManualERC20 is Script {
     function run() external returns (ManualERC20) {
         vm.startBroadcast();
-        ManualERC20 manualErc20 = new ManualERC20();
+        ManualERC20 manualErc20 = new ManualERC20("ManualERC20", "MERC20");
         vm.stopBroadcast();
         return manualErc20;
     }

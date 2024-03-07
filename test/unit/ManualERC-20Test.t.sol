@@ -17,7 +17,7 @@ contract ManualERC20UnitTest is Test {
     function testName() public view {
         assert(
             keccak256(abi.encodePacked(manualErc20.name())) ==
-                keccak256(abi.encodePacked("Manual ERC-20"))
+                keccak256(abi.encodePacked("ManualERC20"))
         );
     }
 
