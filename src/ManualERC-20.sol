@@ -75,10 +75,7 @@ contract ManualERC20 {
         address _to,
         uint256 _value
     ) public returns (bool success) {
-        if (
-            s_balances[_from] >= _value &&
-            s_allowed[_from][msg.sender] >= _value
-        )
+        if (s_balances[_from] < _value && s_allowed[_from][msg.sender] < _value)
             revert ManualERC20__InsufficientAllowanceOrBalance(
                 s_allowed[_from][msg.sender],
                 s_balances[_from],
