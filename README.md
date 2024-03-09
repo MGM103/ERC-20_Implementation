@@ -53,7 +53,7 @@ make deploy
 
 ### Deploying to a testnet or mainnet
 
-1. Setup environment variables
+1. **Setup environment variables**
 
 You'll want to set your `SEPOLIA_RPC_URL`, `PRIVATE_KEY` as environment variables. You can add them to a `.env` file.
 
@@ -62,17 +62,17 @@ You'll want to set your `SEPOLIA_RPC_URL`, `PRIVATE_KEY` as environment variable
 - `SEPOLIA_RPC_URL`: This is url of the sepolia testnet node you're working with. You can get setup with one for free from [Alchemy](https://alchemy.com/?a=673c802981)
 - `ETHERSCAN_API_KEY` to verify your contract on [Etherscan](https://etherscan.io/).
 
-2. Get testnet ETH
+2. **Get testnet ETH**
 
 Head over to [faucets.chain.link](https://faucets.chain.link/) and get some testnet ETH. You should see the ETH show up in your metamask.
 
-3. Deploy
+3. **Deploy**
 
 ```
 make deploy ARGS="--network sepolia"
 ```
 
-4. Verify you contract
+4. **Verify you contract**
 
 ```
 make verify
