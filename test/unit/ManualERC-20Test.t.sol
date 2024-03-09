@@ -10,6 +10,7 @@ contract ManualERC20UnitTest is Test {
     ManualERC20 manualErc20;
     DeployManualERC20 deployManualErc20;
 
+    address deployerAddress;
     address spender = makeAddr("spender");
     address thirdParty = makeAddr("thirdParty");
 
@@ -19,7 +20,8 @@ contract ManualERC20UnitTest is Test {
         deployManualErc20 = new DeployManualERC20();
         manualErc20 = deployManualErc20.run();
 
-        vm.prank(msg.sender);
+        deployerAddress = vm.addr(deployManualErc20.deployerKey());
+        vm.prank(deployerAddress);
         manualErc20.transfer(spender, INITIAL_BAL);
     }
 
