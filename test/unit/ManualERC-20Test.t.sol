@@ -4,7 +4,7 @@ pragma solidity ^0.8.21;
 
 import {Test, console} from "forge-std/Test.sol";
 import {ManualERC20} from "../../src/ManualERC-20.sol";
-import {DeployManualERC20} from "../../script/DeployManualERC20.sol";
+import {DeployManualERC20} from "../../script/DeployManualERC20.s.sol";
 
 contract ManualERC20UnitTest is Test {
     ManualERC20 manualErc20;
